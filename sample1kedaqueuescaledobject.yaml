@@ -1,0 +1,28 @@
+# create a secret called secrets with key as AzureWebJobsStorage (this can be anything but change TriggerAuthentication yaml appropriately)
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: azure-queue-auth
+  namespace: kedaqueue
+spec:
+  secretTargetRef: 
+  - parameter: connection
+    name: secrets
+    key: AzureWebJobsStorage
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: azure-queue-scaledobject-deploy-keda-nginx
+  namespace: kedaqueue
+spec:
+  scaleTargetRef:
+    name: keda-nginx
+  triggers:
+  - type: azure-queue
+    metadata:
+      # Required
+      queueName: kedatestqueue
+      queueLength: "5" # default 5
+    authenticationRef: 
+      name: azure-queue-auth

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: blob-function
+  name: blob-function
+  namespace: kedablob
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blob-function
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: blob-function
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        resources: {}
+status: {}

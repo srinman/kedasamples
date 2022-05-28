@@ -1,0 +1,8 @@
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: kedablobidentity-afc01e9b-2a78-486d-b40a-9f8fdf1a2f1f
+  namespace: kedablob
+spec:
+  podIdentity:
+    provider: azure
