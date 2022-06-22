@@ -11,7 +11,11 @@ Scales K8S workload based on another K8S workload
 
 ## Sample 5
 
-Shows how to use pod identity to authenticate. This is also the same sample code shown in this blog.
+Shows how to use pod identity to authenticate. 
+Keda uses pod identity to authenticate to external resource. 
+Actual triggered workload (scaleTargetRef) could use a different service account with whatever access necessary to process from external resource.
+
+This is also the same sample code shown in this blog.
 
 https://techcommunity.microsoft.com/t5/azure-infrastructure-blog/keda-kubernetes-event-driven-autoscaling-in-aks-and-identities/ba-p/3507799
 
