@@ -1,0 +1,30 @@
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: kedablobidentity-afc01e9b-2a78-486d-b40a-9f8fdf1a2f1f
+  namespace: kedablob
+spec:
+  podIdentity:
+    provider: azureapiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: azure-blob-scaledobject
+  namespace: kedablob
+spec:
+  scaleTargetRef:
+    name: blob-function
+  triggers:
+  - type: azure-blob
+    metadata:
+      # Required
+      blobContainerName: functionsblob
+      # Optional, required when pod identity is used
+      accountName: srinmankedablob
+      # Optional
+      blobCount: "5" # default 5
+      blobPrefix: blobsubpath # Default : ""
+      blobDelimiter: "/" # Default: "/"
+      # Optional, default: AzurePublicCloud
+      # cloud: AzureChinaCloud
+    authenticationRef:
+        name: kedablobidentity-afc01e9b-2a78-486d-b40a-9f8fdf1a2f1f

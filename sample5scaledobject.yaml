@@ -1,0 +1,26 @@
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: kedaoperatorauth
+  namespace: queuezone
+spec:
+  podIdentity:
+    provider: azure
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: azure-queue-scaledobject
+  namespace: queuezone
+spec:
+  scaleTargetRef:
+    name: queue-processor
+  triggers:
+  - type: azure-queue
+    metadata:
+      # Required
+      accountName: srinmankedaqueue
+      queueName: kedatestqueue
+      queueLength: "6"  
+    authenticationRef:
+        name: kedaoperatorauth

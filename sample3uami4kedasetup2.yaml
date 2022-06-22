@@ -1,0 +1,18 @@
+apiVersion: aadpodidentity.k8s.io/v1
+kind: AzureIdentity
+metadata:
+  name: k8sazureidentity
+  namespace: kedablob
+spec:
+  type: 0 # 0 means User-assigned MSI
+  resourceID: "/subscriptions/bc288fdd-c41e-4334-961a-26e993d3c506/resourcegroups/kedarg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/uami4keda"
+  clientID: "d1a7d15b-c416-43e9-8606-3600bec33ef8"
+---
+apiVersion: aadpodidentity.k8s.io/v1
+kind: AzureIdentityBinding
+metadata:
+  name: k8sazureidentity-binding
+  namespace: kedablob
+spec:
+  azureIdentity: k8sazureidentity
+  selector: keda-app-autoscaler

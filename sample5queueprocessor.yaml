@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: queue-processor
+  name: queue-processor
+  namespace: queuezone
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: queue-processor
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: queue-processor
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        resources: {}
+status: {}
